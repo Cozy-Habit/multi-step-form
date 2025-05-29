@@ -8,6 +8,7 @@ import styles from "./AddonsForm.module.scss";
 import clsx from "clsx";
 import { useSubscriptionStore } from "@/app/store";
 import { useEffect } from "react";
+import Headline from "../Headline/Headline";
 
 const addonsSchema = subscriptionSchema.pick({
   addons: true,
@@ -45,8 +46,10 @@ const AddonsForm = () => {
 
   return (
     <div>
-      <h1>Pick add-ons</h1>
-      <p>Add-ons help enhance your gaming experience</p>
+      <Headline
+        title="Pick add-ons"
+        subtitle="Add-ons help enhance your gaming experience"
+      />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
           control={control}

@@ -1,0 +1,9 @@
+.headline {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &__subtitle {
+    color: rgb(178, 178, 178);
+  }
+}

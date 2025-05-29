@@ -7,14 +7,17 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
+import styles from "./UserInfoForm.module.scss";
+import InputField from "../InputField/InputField";
+import Headline from "../Headline/Headline";
+import Button from "../Button/Button";
 const userInfoSchema = subscriptionSchema.pick({
   name: true,
   email: true,
   phone: true,
 });
 
-type UserInfoSchema = z.infer<typeof userInfoSchema>;
+export type UserInfoSchema = z.infer<typeof userInfoSchema>;
 
 const UserInfoForm = () => {
   const setData = useSubscriptionStore((state) => state.setData);
@@ -23,7 +26,7 @@ const UserInfoForm = () => {
   const phone = useSubscriptionStore((state) => state.phone);
 
   const router = useRouter();
-  const { register, handleSubmit, formState } = useForm<UserInfoSchema>({
+  const { handleSubmit, control } = useForm<UserInfoSchema>({
     resolver: zodResolver(userInfoSchema),
     defaultValues: {
       name: name,
@@ -42,29 +45,40 @@ const UserInfoForm = () => {
   }, [useSubscriptionStore.persist.hasHydrated, router]);
 
   return (
-    <div>
-      <h1>Personal info</h1>
-      <p>Please provide your name, email address, and phone number.</p>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label>Name</label>
-          <input placeholder="e.g. Stephan King" {...register("name")} />
-          {formState.errors.name && <p>{formState.errors.name.message}</p>}
-        </div>
-        <div>
-          <label>Email Address</label>
-          <input
-            placeholder="e.g. stephanking@lorem.com"
-            {...register("email")}
+    <div className={styles.userInfoForm}>
+      <Headline
+        title="Personal info"
+        subtitle="Please provide your name, email address, and phone number."
+      />
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={styles.userInfoForm__form}
+      >
+        <div className={styles.userInfoForm__inputContainer}>
+          <InputField
+            name="name"
+            control={control}
+            label="Name"
+            placeholder="e.g. Stephan King"
           />
-          {formState.errors.email && <p>{formState.errors.email.message}</p>}
+          <InputField
+            name="email"
+            control={control}
+            label="Email Address"
+            placeholder="e.g. stephanking@lorem.com"
+          />
+          <InputField
+            name="phone"
+            control={control}
+            label="Phone Number"
+            placeholder="e.g. +1 234 567 890"
+          />
         </div>
-        <div>
-          <label>Phone Number</label>
-          <input placeholder="e.g. +1 234 567 890" {...register("phone")} />
-          {formState.errors.phone && <p>{formState.errors.phone.message}</p>}
-        </div>
-        <button type="submit">Next Step</button>
+        <Button
+          type="submit"
+          text="Next Step"
+          className={styles.userInfoForm__button}
+        />
       </form>
     </div>
   );

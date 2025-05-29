@@ -1,0 +1,27 @@
+.inputField {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &__labelContainer {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__error {
+    color: rgb(200, 0, 0);
+  }
+
+  &__input {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1.5px solid rgb(199, 199, 199);
+    &:focus,
+    &:hover {
+      border: 1.5px solid rgb(51, 0, 181);
+    }
+    &--error {
+      border: 1.5px solid rgb(200, 0, 0);
+    }
+  }
+}

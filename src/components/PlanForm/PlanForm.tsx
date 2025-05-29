@@ -8,6 +8,8 @@ import styles from "./PlanForm.module.scss";
 import clsx from "clsx";
 import { useSubscriptionStore } from "@/app/store";
 import { useEffect } from "react";
+import Headline from "../Headline/Headline";
+import Button from "../Button/Button";
 
 const planSchema = subscriptionSchema.pick({
   billingCycle: true,
@@ -48,8 +50,10 @@ const PlanForm = () => {
 
   return (
     <div>
-      <h1>Select your plan</h1>
-      <p>You have the option of monthly or yearly billing.</p>
+      <Headline
+        title="Select your plan"
+        subtitle="You have the option of monthly or yearly billing."
+      />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
           name="plan"
@@ -119,15 +123,15 @@ const PlanForm = () => {
             </div>
           )}
         />
-        <button
+        <Button
           type="button"
-          onClick={(e) => {
+          onClick={() => {
             router.push("/userinfo");
           }}
-        >
-          Go Back
-        </button>
-        <button type="submit">Next Step</button>
+          variant="minimal"
+          text="Go Back"
+        />
+        <Button type="submit" text="Next Step" />
       </form>
     </div>
   );

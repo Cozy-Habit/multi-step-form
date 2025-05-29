@@ -1,0 +1,21 @@
+.userInfoForm {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  height: 100%;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+  &__inputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  &__button {
+    align-self: flex-end;
+  }
+}

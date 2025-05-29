@@ -1,0 +1,45 @@
+@font-face {
+    font-family: ubuntu;
+    src: url(./Ubuntu-Bold.ttf);
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: ubuntu;
+    src: url(./Ubuntu-Medium.ttf);
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: ubuntu;
+    src: url(./Ubuntu-Regular.ttf);
+    font-weight: normal;
+}
+
+html, body, *{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    background-color: aliceblue;
+}
+
+.layout{
+    font-family: 'ubuntu';
+    display: grid;
+    height: 600px;
+    max-width: 1000px;
+    grid-template-rows: 1fr;
+    grid-template-columns: 300px minmax(400px, 800px);
+    background-color: white;
+    padding: 16px;
+    margin: auto;
+    box-shadow: 10px 5px 15px rgba(0, 0, 0, 0.074);
+    border-radius: 16px;
+    color: rgb(0, 0, 82);
+}
+
+main{
+    padding: 32px 48px;
+}

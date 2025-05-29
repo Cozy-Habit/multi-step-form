@@ -3,6 +3,8 @@ import { useSubscriptionStore } from "@/app/store";
 import { useRouter } from "next/navigation";
 import { Addons, Plans } from "@/feature/subscription/schema";
 import { useEffect, useState } from "react";
+import Headline from "../Headline/Headline";
+import styles from "./SummaryForm.module.scss";
 
 type AddonsProps = { name: string; price: number }[];
 type PricingProps = {
@@ -76,8 +78,11 @@ const SummaryForm = () => {
   if (pricing)
     return (
       <div>
-        <h1>Finishing up</h1>
-        <p>Double-check everything looks OK before confirming.</p>
+        <Headline
+          title="Finishing up"
+          subtitle="Double-check everything looks OK before confirming."
+        />
+
         <div>
           <div>
             <div>
