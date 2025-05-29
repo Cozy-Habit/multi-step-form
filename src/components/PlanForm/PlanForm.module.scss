@@ -1,0 +1,7 @@
+.planForm {
+  &__option {
+    &--selected {
+      border: 1px black solid;
+    }
+  }
+}

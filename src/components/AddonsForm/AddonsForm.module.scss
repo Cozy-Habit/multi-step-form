@@ -1,0 +1,9 @@
+.addonsForm {
+  display: flex;
+  gap: 8px;
+  &__option {
+    &--selected {
+      outline: 1px black solid;
+    }
+  }
+}
