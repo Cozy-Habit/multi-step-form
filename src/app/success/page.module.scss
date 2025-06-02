@@ -1,0 +1,14 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  text-align: center;
+  height: 100%;
+
+  &__text {
+    line-height: 150%;
+    color: var(--color-secondary);
+  }
+}

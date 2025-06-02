@@ -1,0 +1,46 @@
+.select {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  width: 100%;
+  text-align: start;
+  padding: 16px;
+  border: 1px solid var(--color-secondary);
+  border-radius: 8px;
+  background-color: var(--color-modal);
+
+  &:hover,
+  &:focus {
+    border: 1px solid var(--color-primary);
+  }
+  &--selected {
+    border: 1px solid var(--color-primary);
+    background-color: var(--color-bg-selected);
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__title {
+    font-weight: 700;
+    color: var(--color-primary);
+    font-size: 1.2em;
+  }
+  &__subtitle {
+    color: var(--color-secondary);
+    font-size: 1.1em;
+  }
+  &__extra {
+    color: var(--color-primary);
+  }
+}
+
+@media (width < 520px) {
+  .select {
+    flex-direction: row;
+    gap: 16px;
+  }
+}

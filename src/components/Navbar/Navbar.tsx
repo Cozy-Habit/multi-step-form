@@ -1,13 +1,14 @@
 "use client";
 import clsx from "clsx";
-import styles from "./Navbar.module.scss";
 import { usePathname } from "next/navigation";
+import styles from "./Navbar.module.scss";
 
 const Navbar = () => {
   const pathname = usePathname();
 
   return (
     <nav className={styles.navbar}>
+      <div className={styles.navbar__backdrop}></div>
       <div className={styles.navbar__tab}>
         <div
           className={clsx(styles.navbar__tabNumber, {

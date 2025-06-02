@@ -1,9 +1,38 @@
 .addonsForm {
   display: flex;
-  gap: 8px;
-  &__option {
-    &--selected {
-      outline: 1px black solid;
+  flex-direction: column;
+  height: 100%;
+
+  &__form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &__addons {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+@media (width < 860px) {
+  .addonsForm {
+    &__buttons {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px;
+      background-color: var(--color-modal);
+      display: flex;
+      justify-content: space-between;
     }
   }
 }

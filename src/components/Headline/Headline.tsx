@@ -7,7 +7,7 @@ interface HeadlineProps {
 const Headline = ({ subtitle, title }: HeadlineProps) => {
   return (
     <div className={styles.headline}>
-      <h1>{title}</h1>
+      <h1 className={styles.headline__title}>{title}</h1>
       <p className={styles.headline__subtitle}>{subtitle}</p>
     </div>
   );

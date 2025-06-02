@@ -7,10 +7,10 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import styles from "./UserInfoForm.module.scss";
-import InputField from "../InputField/InputField";
-import Headline from "../Headline/Headline";
 import Button from "../Button/Button";
+import Headline from "../Headline/Headline";
+import InputField from "../InputField/InputField";
+import styles from "./UserInfoForm.module.scss";
 const userInfoSchema = subscriptionSchema.pick({
   name: true,
   email: true,
@@ -74,11 +74,9 @@ const UserInfoForm = () => {
             placeholder="e.g. +1 234 567 890"
           />
         </div>
-        <Button
-          type="submit"
-          text="Next Step"
-          className={styles.userInfoForm__button}
-        />
+        <footer className={styles.userInfoForm__buttons}>
+          <Button type="submit" text="Next Step" />
+        </footer>
       </form>
     </div>
   );

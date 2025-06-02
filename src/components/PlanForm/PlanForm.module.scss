@@ -1,7 +1,94 @@
 .planForm {
-  &__option {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  &__inputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  &__selection {
+    display: flex;
+    gap: 16px;
+  }
+
+  &__cycle {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    background-color: var(--color-bg-selected);
+    padding: 12px 0;
+    border-radius: 8px;
+    color: var(--color-secondary);
+    font-weight: 700;
+
     &--selected {
-      border: 1px black solid;
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+  }
+
+  &__toggle {
+    display: flex;
+    background-color: var(--color-primary);
+    border-radius: 12px;
+    border: none;
+    width: 40px;
+    padding: 4px;
+
+    &:hover,
+    &:focus {
+      cursor: pointer;
+      background-color: var(--color-primary);
+    }
+    &--selected {
+      justify-content: end;
+    }
+  }
+
+  &__toggleSwitch {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    background-color: var(--color-white);
+    border-radius: 100%;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+@media (width < 860px) {
+  .planForm {
+    &__buttons {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px;
+      background-color: var(--color-modal);
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
+
+@media (width < 520px) {
+  .planForm {
+    &__selection {
+      flex-direction: column;
+      gap: 16px;
     }
   }
 }

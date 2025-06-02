@@ -1,0 +1,49 @@
+.checkbox {
+  display: flex;
+  gap: 24px;
+  border: 1px solid var(--color-secondary);
+  border-radius: 8px;
+  padding: 16px 20px;
+
+  &:hover,
+  &:focus,
+  &:focus-within {
+    border: 1px solid var(--color-primary);
+    cursor: pointer;
+  }
+
+  &__input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin: auto;
+    accent-color: var(--color-tertiary);
+    cursor: pointer;
+  }
+
+  &--selected {
+    border: 1px solid var(--color-primary);
+    background-color: var(--color-bg-selected);
+  }
+
+  &__textWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__subtitle {
+    color: var(--color-secondary);
+    font-size: 0.9em;
+  }
+
+  &__price {
+    color: var(--color-tertiary);
+  }
+}

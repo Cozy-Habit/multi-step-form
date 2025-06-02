@@ -1,20 +1,28 @@
 "use client";
-import { subscriptionSchema } from "@/feature/subscription/schema";
+import { useSubscriptionStore } from "@/app/store";
+import { Addons, subscriptionSchema } from "@/feature/subscription/schema";
+import formatPrice from "@/utils/formatPrice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
-import styles from "./AddonsForm.module.scss";
-import clsx from "clsx";
-import { useSubscriptionStore } from "@/app/store";
-import { useEffect } from "react";
+import Button from "../Button/Button";
+import Checkbox from "../Checkbox/Checkbox";
 import Headline from "../Headline/Headline";
+import styles from "./AddonsForm.module.scss";
 
 const addonsSchema = subscriptionSchema.pick({
   addons: true,
 });
 
 type PlanSchema = z.infer<typeof addonsSchema>;
+
+const SubtitleMap = {
+  OnlineService: "Access to multiplayer games",
+  LargerStorage: "Extra 1 TB of cloud save",
+  CustomizableProfile: "Custom theme on your profile",
+};
 
 const AddonsForm = () => {
   const setData = useSubscriptionStore((state) => state.setData);
@@ -45,84 +53,57 @@ const AddonsForm = () => {
   }, [useSubscriptionStore.persist.hasHydrated, plan, billingCycle, router]);
 
   return (
-    <div>
+    <div className={styles.addonsForm}>
       <Headline
         title="Pick add-ons"
         subtitle="Add-ons help enhance your gaming experience"
       />
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Controller
-          control={control}
-          name="addons"
-          render={({ field }) => (
-            <div>
-              <div
-                className={clsx(styles.addonsForm__option, {
-                  [styles["addonsForm__option--selected"]]:
-                    field.value?.OnlineService,
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={styles.addonsForm__form}
+      >
+        <div className={styles.addonsForm__addons}>
+          <Controller
+            control={control}
+            name="addons"
+            render={({ field }) => (
+              <>
+                {Object.entries(Addons).map((addon, index) => {
+                  const key = addon[0];
+                  const price =
+                    billingCycle === "monthly"
+                      ? addon[1].priceMonthly
+                      : addon[1].priceYearly;
+
+                  if (billingCycle)
+                    return (
+                      <Checkbox
+                        key={index}
+                        price={formatPrice(price.toString(), billingCycle)}
+                        subtitle={SubtitleMap[key]}
+                        title={addon[0].replace(/([A-Z])/g, " $1").trim()}
+                        isSelected={field.value?.[key] ?? false}
+                        onChange={(e) =>
+                          field.onChange({
+                            ...field.value,
+                            [key]: e.target.checked ? true : false,
+                          })
+                        }
+                      />
+                    );
                 })}
-              >
-                <input
-                  type="checkbox"
-                  checked={field.value?.OnlineService}
-                  onChange={(e) =>
-                    field.onChange({
-                      ...field.value,
-                      OnlineService: e.target.checked ? true : false,
-                    })
-                  }
-                />
-                <p>Online service</p>
-                <p>Access the multiplayer games</p>
-                <span>+$1/mo</span>
-              </div>
-              <div
-                className={clsx(styles.addonsForm__option, {
-                  [styles["addonsForm__option--selected"]]:
-                    field.value?.LargerStorage,
-                })}
-              >
-                <input
-                  type="checkbox"
-                  checked={field.value?.LargerStorage}
-                  onChange={(e) =>
-                    field.onChange({
-                      ...field.value,
-                      LargerStorage: e.target.checked ? true : false,
-                    })
-                  }
-                />
-                <p>Larger storage</p>
-                <p>Extra 1TB of cloud save</p>
-                <span>+$2/mo</span>
-              </div>
-              <div
-                className={clsx(styles.addonsForm__option, {
-                  [styles["addonsForm__option--selected"]]:
-                    field.value?.CustomizableProfile,
-                })}
-              >
-                <input
-                  type="checkbox"
-                  checked={field.value?.CustomizableProfile}
-                  onChange={(e) =>
-                    field.onChange({
-                      ...field.value,
-                      CustomizableProfile: e.target.checked ? true : false,
-                    })
-                  }
-                />
-                <p>Customizable profile</p>
-                <p>Custom theme on your profile</p>
-                <span>+$2/mo</span>
-              </div>
-            </div>
-          )}
-        />
-        <button type="button" onClick={() => router.push("/plan")}>
-          Go back
-        </button>
-        <button type="submit">Next Step</button>
+              </>
+            )}
+          />
+        </div>
+        <footer className={styles.addonsForm__buttons}>
+          <Button
+            onClick={() => router.push("/plan")}
+            text="Go Back"
+            variant="minimal"
+          />
+          <Button type="submit" text="Next Step" />
+        </footer>
       </form>
     </div>
   );
