@@ -39,18 +39,15 @@ const AddonsForm = () => {
   });
 
   const onSubmit = (data: PlanSchema) => {
-    console.log(data);
     setData(data);
     router.push("/summary");
   };
 
   useEffect(() => {
-    if (!useSubscriptionStore.persist.hasHydrated) return;
-
     if (!plan || !billingCycle) {
       router.push("./plan");
     }
-  }, [useSubscriptionStore.persist.hasHydrated, plan, billingCycle, router]);
+  }, [plan, billingCycle, router]);
 
   return (
     <div className={styles.addonsForm}>
@@ -69,7 +66,8 @@ const AddonsForm = () => {
             render={({ field }) => (
               <>
                 {Object.entries(Addons).map((addon, index) => {
-                  const key = addon[0];
+                  const key: keyof typeof Addons =
+                    addon[0] as keyof typeof Addons;
                   const price =
                     billingCycle === "monthly"
                       ? addon[1].priceMonthly

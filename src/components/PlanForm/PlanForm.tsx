@@ -45,12 +45,10 @@ const PlanForm = () => {
   };
 
   useEffect(() => {
-    if (!useSubscriptionStore.persist.hasHydrated) return;
-
     if (!name || !email || !phone) {
       router.push("./userinfo");
     }
-  }, [useSubscriptionStore.persist.hasHydrated, name, email, phone, router]);
+  }, [name, email, phone, router]);
 
   return (
     <div className={styles.planForm}>

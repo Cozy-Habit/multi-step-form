@@ -29,46 +29,45 @@ const SummaryForm = () => {
   };
 
   const getFullPrice = () => {
-    const planPrice =
-      billingCycle === "monthly"
-        ? Plans[plan].priceMonthly
-        : Plans[plan].priceYearly;
-
-    const addonsPrice: AddonsProps = [];
-
-    if (Object.entries(addons).length === 0)
-      return { planPrice, fullPrice: planPrice };
-
-    Object.entries(addons).map(([key]) => {
-      const price =
+    if (plan) {
+      const planPrice =
         billingCycle === "monthly"
-          ? Addons[key].priceMonthly
-          : Addons[key].priceYearly;
+          ? Plans[plan].priceMonthly
+          : Plans[plan].priceYearly;
 
-      addonsPrice.push({
-        name: key,
-        price,
-      });
-    });
+      const addonsPrice: AddonsProps = [];
 
-    const fullPrice =
-      planPrice +
-      addonsPrice.reduce(({ price: accPrice }, { price: curPrice }) => {
-        return { name: "", price: accPrice + curPrice };
-      }).price;
+      if (addons != undefined) {
+        if (Object.entries(addons).length === 0)
+          return { planPrice, fullPrice: planPrice };
 
-    return { planPrice, addonsPrice, fullPrice };
+        Object.entries(addons).map(([key]) => {
+          const price =
+            billingCycle === "monthly"
+              ? Addons[key as keyof typeof Addons].priceMonthly
+              : Addons[key as keyof typeof Addons].priceYearly;
+
+          addonsPrice.push({
+            name: key,
+            price,
+          });
+        });
+      }
+      const fullPrice =
+        planPrice +
+        addonsPrice.reduce(({ price: accPrice }, { price: curPrice }) => {
+          return { name: "", price: accPrice + curPrice };
+        }).price;
+
+      return { planPrice, addonsPrice, fullPrice };
+    }
   };
 
   useEffect(() => {
-    if (!useSubscriptionStore.persist.hasHydrated) return;
-
-    console.log(addons);
-
     if (!addons) {
       router.push("./addons");
     } else setPricing(getFullPrice());
-  }, [useSubscriptionStore.persist.hasHydrated, addons, router]);
+  }, [addons, router]);
 
   if (pricing && billingCycle)
     return (

@@ -4,7 +4,6 @@ import { useSubscriptionStore } from "@/app/store";
 import { subscriptionSchema } from "@/feature/subscription/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Button from "../Button/Button";
@@ -39,10 +38,6 @@ const UserInfoForm = () => {
     setData(data);
     router.push("/plan");
   };
-
-  useEffect(() => {
-    if (!useSubscriptionStore.persist.hasHydrated) return;
-  }, [useSubscriptionStore.persist.hasHydrated, router]);
 
   return (
     <div className={styles.userInfoForm}>
