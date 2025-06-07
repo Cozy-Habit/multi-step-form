@@ -80,9 +80,7 @@ const PlanForm = () => {
                         subtitle={formatPrice(price.toString(), cycle)}
                         title={plan[0]}
                         isSelected={field.value === plan[0]}
-                        extra={
-                          billingCycle == "yearly" ? "2 months free" : undefined
-                        }
+                        extra={cycle === "yearly" ? "2 months free" : undefined}
                       />
                     );
                 })}
@@ -96,7 +94,8 @@ const PlanForm = () => {
               <div className={styles.planForm__cycle}>
                 <span
                   className={clsx({
-                    [styles["planForm__cycle--selected"]]: cycle === "monthly",
+                    [styles["planForm__cycle--selected"]]:
+                      field.value === "monthly",
                   })}
                 >
                   Monthly
